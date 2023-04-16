@@ -27,13 +27,23 @@ def print_occurrences(output):
     print(' '.join(map(str, output)))
 
 def get_occurrences(pattern, text):
-    # this function should find the occurances using Rabin Karp alghoritm 
-
-    # and return an iterable variable
-    return [0]
+    patternhash = 0
+    result = []
+    textlen = len(text)
+    patternlen = len(pattern)
+    
+    for i in range(patternlen):
+        patternhash = patternhash+ord(pattern[i])
+    for i in range(textlen-patternlen+1):
+        texthash = 0
+        for j in range(patternlen):
+            texthash = texthash + ord(text[i+j])
+        if texthash == patternhash:
+            if text[i:i+patternlen] == pattern:
+                result.append(i)
+    return result
 
 
 # this part launches the functions
 if __name__ == '__main__':
     print_occurrences(get_occurrences(*read_input()))
-
